@@ -12,16 +12,11 @@ export default function MemoListScreen(props) {
   const { navigation } = props;
   const [memos, setMemos] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <LogOutButton />,
-    });
-  }, []);
 
+  let unsubscribe = () => {};
   useEffect(() => {
     const db = firebase.firestore();
     const { currentUser } = firebase.auth();
-    let unsubscribe = () => {};
     if (currentUser) {
       setLoading(true);
       const ref = db.collection(`users/${currentUser.uid}/memos`).orderBy('updatedAt', 'desc');
@@ -45,6 +40,13 @@ export default function MemoListScreen(props) {
       });
     }
     return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <LogOutButton unsubscribe={unsubscribe} />,
+      // headerRight: () => <LogOutButton />,
+    });
   }, []);
 
   if (memos.length === 0) {
