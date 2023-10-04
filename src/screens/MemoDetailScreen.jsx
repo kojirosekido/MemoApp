@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, ScrollView, Text, StyleSheet, Alert,
+  View, ScrollView, Text, StyleSheet,
 } from 'react-native';
 import { shape, string } from 'prop-types';
 import firebase from 'firebase';
@@ -20,7 +20,7 @@ export default function MemoDetailScreen(props) {
       const db = firebase.firestore();
       const ref = db.collection(`users/${currentUser.uid}/memos`).doc(id);
       unsubscribe = ref.onSnapshot((doc) => {
-        console.log(doc.id, doc.data());
+        // console.log(doc.id, doc.data());
         const data = doc.data();
         setMemo({
           id: doc.id,

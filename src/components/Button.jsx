@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
-import {func, string, shape } from 'prop-types';
+import { func, string, shape } from 'prop-types';
 
 export default function Button(props) {
   const { label, onPress, style } = props;
